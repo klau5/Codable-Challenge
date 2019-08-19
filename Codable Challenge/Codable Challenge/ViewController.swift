@@ -16,10 +16,6 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.estimatedRowHeight = 44
-//        tableView.reloadData()
-        
         // add camera icon to navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addNewImage))
         
@@ -110,21 +106,30 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     // allow user to change image caption fron "Unknown"
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let user = users[indexPath.row]
         
+        //TODO: Make DetailedVieController display camera image
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.selectedPhoto = users[indexPath.row].image
+            navigationController?.pushViewController(vc, animated: true)
+         
+        // allow user to change image caption from "Unknown"
         let alertController = UIAlertController(title: "Rename", message: nil, preferredStyle: .alert)
-        alertController.addTextField()
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak alertController] _ in
+            alertController.addTextField()
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak alertController] _ in
             guard let newCaption = alertController?.textFields?[0].text else {return}
             user.caption = newCaption
             
             self?.tableView.reloadData()
             self?.saveData()
-        })
-        present(alertController, animated: true)
+            })
+            
+            present(alertController, animated: true)
+        }
     }
     
     // Verify and request Authorisation for camera capture
@@ -163,7 +168,6 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         
         present(alert, animated: true, completion: nil)
     }
-
 
 }
 

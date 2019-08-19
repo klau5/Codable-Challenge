@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0219EFF230B56DD0050CCA2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0219EFE230B56DD0050CCA2 /* DetailViewController.swift */; };
 		C08A194F230A3A6500673321 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A194E230A3A6500673321 /* AppDelegate.swift */; };
 		C08A1951230A3A6500673321 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A1950230A3A6500673321 /* ViewController.swift */; };
 		C08A1954230A3A6500673321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C08A1952230A3A6500673321 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0219EFE230B56DD0050CCA2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C08A194B230A3A6500673321 /* Codable Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Codable Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C08A194E230A3A6500673321 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C08A1950230A3A6500673321 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				C08A1962230A508B00673321 /* User.swift */,
 				C08A1950230A3A6500673321 /* ViewController.swift */,
 				C08A1960230A3E3900673321 /* TableViewCell.swift */,
+				C0219EFE230B56DD0050CCA2 /* DetailViewController.swift */,
 				C08A1955230A3A6600673321 /* Assets.xcassets */,
 				C08A1952230A3A6500673321 /* Main.storyboard */,
 				C08A1957230A3A6600673321 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 			files = (
 				C08A1963230A508B00673321 /* User.swift in Sources */,
 				C08A1961230A3E3900673321 /* TableViewCell.swift in Sources */,
+				C0219EFF230B56DD0050CCA2 /* DetailViewController.swift in Sources */,
 				C08A1951230A3A6500673321 /* ViewController.swift in Sources */,
 				C08A194F230A3A6500673321 /* AppDelegate.swift in Sources */,
 			);
