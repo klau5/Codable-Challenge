@@ -19,7 +19,34 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         // add camera icon to navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addNewImage))
         
-        accessCamera()
+        loadData()
+    }
+    
+    // save user data with Codable (JSON)
+    func saveData() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(users) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "users")
+        } else {
+            let failedSaveAlert = UIAlertController(title: "Warning!", message: "Failed to save Data", preferredStyle: UIAlertController.Style.alert)
+            present(failedSaveAlert, animated: true)
+        }
+    }
+    
+    // retrieve user data
+    func loadData() {
+        let defaults = UserDefaults.standard
+        if let savedUsers = defaults.object(forKey: "users") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                users = try jsonDecoder.decode([User].self, from: savedUsers)
+            } catch {
+                let failedDataRetrieval = UIAlertController(title: "Warning!", message: "Failed to Load Data", preferredStyle: UIAlertController.Style.alert)
+                present(failedDataRetrieval, animated: true)
+            }
+        }
     }
     
     // get new image from camera
@@ -50,11 +77,12 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         }
         
         // stores image name in User object and gives default name Unknown
-        let user = User(caption: "Unknown", image: imageName)
+        let user = User(caption: "rename", image: imageName)
         users.append(user)
         tableView.reloadData()
         
         dismiss(animated: true)
+        saveData() // save image
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,6 +102,25 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         cell.imageView?.image = UIImage(contentsOfFile: path.path)
         
         return cell
+    }
+    
+    // allow user to change image caption fron "Unknown"
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[indexPath.row]
+        
+        let alertController = UIAlertController(title: "Rename", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak alertController] _ in
+            guard let newCaption = alertController?.textFields?[0].text else {return}
+            user.caption = newCaption
+            
+            self?.tableView.reloadData()
+            self?.saveData()
+        })
+        present(alertController, animated: true)
     }
     
     // Verify and request Authorisation for camera capture
