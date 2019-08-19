@@ -18,6 +18,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         
         // add camera icon to navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addNewImage))
+        
+        accessCamera()
     }
     
     // get new image from camera
@@ -37,8 +39,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     // write image from camera into the Documents folder as JPEG with unique UUID
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        accessCamera()
-        
+    
         guard let photo = info[.editedImage] as? UIImage else { return }
         
         let imageName = UUID().uuidString
@@ -84,7 +85,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         case .notDetermined:
             requestCameraPermission()
         case .restricted, .denied:
-            return
+            permissionsAlert()
         case .authorized:
             addNewImage()
         @unknown default:
@@ -101,10 +102,13 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     func permissionsAlert() {
-        let alert = UIAlertController(title: "Request Camera Access", message: "Camera access is required to make full use of the app.", preferredStyle: UIAlertController.Style.alert)
+        let settingsAppURL = URL(string: UIApplication.openSettingsURLString)!
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Allow", style: .default, handler: nil))
+        let alert = UIAlertController(title: "Codable Challenge Would Like to Access the Camera", message: "This app needs access to the camera to take photos.", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Don't Allow", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (alert) -> Void in UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+        }))
         
         present(alert, animated: true, completion: nil)
     }
