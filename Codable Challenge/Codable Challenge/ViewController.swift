@@ -16,6 +16,10 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 44
+//        tableView.reloadData()
+        
         // add camera icon to navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addNewImage))
         

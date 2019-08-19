@@ -59,13 +59,13 @@
 			isa = PBXGroup;
 			children = (
 				C08A194E230A3A6500673321 /* AppDelegate.swift */,
+				C08A1962230A508B00673321 /* User.swift */,
 				C08A1950230A3A6500673321 /* ViewController.swift */,
-				C08A1952230A3A6500673321 /* Main.storyboard */,
 				C08A1960230A3E3900673321 /* TableViewCell.swift */,
 				C08A1955230A3A6600673321 /* Assets.xcassets */,
+				C08A1952230A3A6500673321 /* Main.storyboard */,
 				C08A1957230A3A6600673321 /* LaunchScreen.storyboard */,
 				C08A195A230A3A6600673321 /* Info.plist */,
-				C08A1962230A508B00673321 /* User.swift */,
 			);
 			path = "Codable Challenge";
 			sourceTree = "<group>";
